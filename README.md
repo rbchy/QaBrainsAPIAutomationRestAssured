@@ -1,4 +1,4 @@
-# QaBrainsAPIAutomation 🚀
+# QaBrainsAPIAutomationRestAssured 🚀
 
 <div align="center">
 
