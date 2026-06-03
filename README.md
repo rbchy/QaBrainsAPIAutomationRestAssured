@@ -435,11 +435,6 @@ Please follow the existing package structure, naming conventions, and group tagg
     </td>
   </tr>
 </table>
-
-[![Email](https://img.shields.io/badge/Email-chyranajit%40gmail.com-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:chyranajit@gmail.com)
-&nbsp;&nbsp;
-[![GitHub](https://img.shields.io/badge/GitHub-%40ranajitchowdhury-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ranajitchowdhury)
-
 <br/>
 
 **Core Expertise**
