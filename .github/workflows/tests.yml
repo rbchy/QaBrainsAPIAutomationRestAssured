@@ -1,0 +1,57 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  api:
+    name: API tests (Rest Assured)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Run @api scenarios
+        run: mvn -B --no-transfer-progress clean test -Dtest=ApiRunner
+      - name: Upload API report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-report
+          path: |
+            target/api-report.*
+            target/surefire-reports/
+          if-no-files-found: ignore
+
+  ui:
+    name: UI tests (Selenium, headless Chrome)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Run UI scenarios
+        run: mvn -B --no-transfer-progress clean test -Dtest=UiRunner -Dheadless=true
+      - name: Upload UI report and failure pages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-report
+          path: |
+            target/ui-report.*
+            target/failures/
+            target/surefire-reports/
+          if-no-files-found: ignore

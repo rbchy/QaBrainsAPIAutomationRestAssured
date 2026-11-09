@@ -1,0 +1,16 @@
+{
+  "existingUserId": 1,
+  "createUser": {
+    "name": "RB Chowdhury",
+    "username": "rbchy",
+    "email": "qa.tester@example.com"
+  },
+  "updateUser": {
+    "id": 1,
+    "name": "RB Chowdhury (updated)",
+    "username": "rbchy",
+    "email": "qa.tester.updated@example.com"
+  },
+  "invalidEndpoint": "/this-endpoint-does-not-exist",
+  "maxResponseTimeMs": 5000
+}
