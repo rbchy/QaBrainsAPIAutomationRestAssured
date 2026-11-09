@@ -4,11 +4,12 @@
 
 ### Hybrid BDD suite: REST API tests with Rest Assured + UI tests with Selenium, written in Cucumber
 
-[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&size=18&pause=1500&color=FFC107&center=true&vCenter=true&width=900&repeat=true&lines=Java+%C2%B7+Rest+Assured+%C2%B7+Cucumber+%C2%B7+Selenium+%C2%B7+TestNG;API%3A+GET+%C2%B7+POST+%C2%B7+PUT+%C2%B7+DELETE+%C2%B7+negative+checks;UI%3A+login%2C+registration%2C+cart%2C+forgot+password)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&size=18&pause=1500&color=FFC107&center=true&vCenter=true&width=900&repeat=true&lines=Java+%C2%B7+Rest+Assured+%C2%B7+Cucumber+%C2%B7+Selenium+%C2%B7+TestNG;API%3A+GET+%C2%B7+POST+%C2%B7+PUT+%C2%B7+DELETE+%C2%B7+JSON+Schema+%C2%B7+negative;20+%2F+20+scenarios+passing+in+GitHub+Actions)](https://git.io/typing-svg)
 
 <!-- ============ STATUS BAR ============ -->
-![Status](https://img.shields.io/badge/Status-In%20Progress-f59e0b?style=for-the-badge&logo=checkmarx&logoColor=white)
-![Scenarios](https://img.shields.io/badge/Scenarios-21%20(6%20API%20%C2%B7%2015%20UI)-155e75?style=for-the-badge)
+[![Tests](https://github.com/rbchy/QaBrainsAPIAutomationRestAssured/actions/workflows/tests.yml/badge.svg)](https://github.com/rbchy/QaBrainsAPIAutomationRestAssured/actions/workflows/tests.yml)
+![Pass Rate](https://img.shields.io/badge/Pass%20Rate-100%25%20(20%2F20)-22c55e?style=for-the-badge&logo=checkmarx&logoColor=white)
+![Scenarios](https://img.shields.io/badge/Scenarios-5%20API%20%C2%B7%2015%20UI-155e75?style=for-the-badge)
 ![API](https://img.shields.io/badge/API-JSONPlaceholder-1e3a8a?style=for-the-badge&logo=json&logoColor=white)
 ![UI](https://img.shields.io/badge/UI-practice.qabrains.com-0d9488?style=for-the-badge&logo=googlechrome&logoColor=white)
 
@@ -48,13 +49,27 @@ One Cucumber project that tests a system from **two sides**: the **REST API** la
 |---|---|
 | 🔌 **API target** | [jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com) |
 | 🌐 **UI target** | [practice.qabrains.com](https://practice.qabrains.com/) |
-| 🧪 **Scenarios** | 21 in 13 feature files |
-| 🏷️ **Suites** | `@smoke` · `@regression` · `@api` |
+| 🧪 **Scenarios** | 20 in 12 feature files |
+| ✅ **CI** | GitHub Actions · API + headless Chrome |
+| 🏷️ **Suites** | `@smoke` · `@regression` · `@api` · `@Cart` |
 | ⚙️ **Config** | `src/test/resources/config.properties` |
 
 </td>
 </tr>
 </table>
+
+---
+
+## ✅ Latest Results
+
+Every push runs both packs in **GitHub Actions** ([workflow](.github/workflows/tests.yml)): the API job against JSONPlaceholder and the UI job in headless Chrome against practice.qabrains.com.
+
+| Pack | Runner | Scenarios | Result |
+|---|---|---:|---|
+| 🔌 API | `ApiRunner` (`@api`) | 5 | ![passed](https://img.shields.io/badge/-5%20%2F%205%20passed-22c55e?style=flat-square) |
+| 🌐 UI | `UiRunner` (`not @api`) | 15 | ![passed](https://img.shields.io/badge/-15%20%2F%2015%20passed-22c55e?style=flat-square) |
+
+On a failed UI scenario the report gets a **screenshot and the page HTML**, also saved under `target/failures/` and uploaded as a CI artifact.
 
 ---
 
@@ -76,14 +91,15 @@ flowchart LR
 
 ## 🔌 API Coverage
 
-| # | Feature file | Scenario | Method | Tags |
+| # | Feature file | Scenario | Request | Checks |
 |---|---|---|---|---|
-| 1 | `APIgetUser.feature` | Get user details | `GET` | `@smoke @regression @api @get` |
-| 2 | `APIcreateUser.feature` | Create a user | `POST` | `@smoke @regression @api @create` |
-| 3 | `APIupdateUser.feature` | Update a user | `PUT` | `@smoke @regression @api @update` |
-| 4 | `APIdeleteUser.feature` | Delete a user | `DELETE` | `@smoke @regression @api @delete` |
-| 5 | `APInegativeTest.feature` | Call an invalid endpoint → error expected | `GET` | `@smoke @regression @api @negative` |
-| 6 | `APITest.feature` | Update user (combined API feature) | `PUT` | `@smoke @regression` |
+| 1 | `APIgetUser.feature` | Get user details | `GET /users/1` | 200 · JSON · **JSON Schema** · id = 1 |
+| 2 | `APIcreateUser.feature` | Create a user | `POST /users` | 201 · new id · name / username / email echoed |
+| 3 | `APIupdateUser.feature` | Update a user | `PUT /users/1` | 200 · id = 1 · updated fields echoed |
+| 4 | `APIdeleteUser.feature` | Delete a user | `DELETE /users/1` | 200 · empty JSON body |
+| 5 | `APInegativeTest.feature` | Call an invalid endpoint | `GET /this-endpoint-does-not-exist` | 404 |
+
+Every request also checks the **response time** (limit in `testdata.json`) and attaches the pretty-printed response to the Cucumber report. Payloads come from [`testdata.json`](src/test/resources/testdata.json); the schema is [`schemas/user-schema.json`](src/test/resources/schemas/user-schema.json).
 
 Every API scenario follows the same shape:
 
@@ -112,25 +128,29 @@ Then API response should be valid  # status code + response body checks
 </details>
 
 <details>
-<summary><strong>🛒 Cart</strong></summary>
+<summary><strong>🛒 E-commerce demo (cart & products)</strong></summary>
 
 <br>
 
+All shop scenarios first log in to the shop at `/ecommerce/login` with its public practice account.
+
 | Feature | Scenarios |
 |---|---|
-| `CartCheckout.feature` | Add a product to the cart · remove it and confirm the cart is empty |
+| `CartCheckout.feature` | Add a product → it is marked *Remove from cart* · add then remove → cart is empty |
+| `RegressionTests.feature` | R-01 add 3 products → 3 in the cart · R-02 product details page shows name and price · R-03 every product card has a name, a price and an *Add to cart* button |
 
 </details>
 
 <details>
-<summary><strong>💨 Smoke & Regression packs</strong></summary>
+<summary><strong>💨 Smoke pack</strong></summary>
 
 <br>
 
-| Feature | Scenarios |
+| Scenario | Check |
 |---|---|
-| `SmokeTests.feature` | S-01 home page loads · S-02 Catalog / About / Blog navigation · S-03 Wish list and Refer a Friend |
-| `RegressionTests.feature` | R-01 add multiple products · R-02 update quantity · R-03 search for an item that does not exist |
+| S-01 | Home page loads |
+| S-02 | Registration, Forgot Password, Form Submission and Drag and Drop List open from the sidebar menu |
+| S-03 | The E-Commerce demo site opens from the menu |
 
 </details>
 
@@ -140,12 +160,13 @@ Then API response should be valid  # status code + response body checks
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| Language | Java | Test code |
-| API testing | Rest Assured | Fluent `given / when / then` HTTP requests and assertions |
-| UI testing | Selenium WebDriver | Drives Chrome |
+| Language | Java 17 | Test code |
+| API testing | Rest Assured 5.5 + JSON Schema Validator | Fluent `given / when / then` requests, schema checks |
+| UI testing | Selenium WebDriver 4.25 | Drives Chrome (headless in CI) |
 | Driver management | WebDriverManager | Downloads the matching ChromeDriver automatically |
-| BDD | Cucumber (Gherkin) | Readable scenarios shared by API and UI |
-| Runner | TestNG | Executes Cucumber scenarios |
+| BDD | Cucumber 7.15 (Gherkin) | Readable scenarios shared by API and UI |
+| Runner | TestNG 7.9 | Executes Cucumber scenarios |
+| CI | GitHub Actions | API and UI jobs, reports uploaded as artifacts |
 | Build | Maven | Dependencies and `mvn test` |
 | Config | Java `Properties` | Environment values in one file |
 
@@ -156,25 +177,36 @@ Then API response should be valid  # status code + response body checks
 ```
 QaBrainsAPIAutomationRestAssured/
 ├── src/test/java/utils/
-│   ├── BaseTest.java            ← loads config.properties, Chrome setup (incognito,
-│   │                              password-manager popups off, waits), health check
+│   ├── BaseTest.java            ← config.properties, Chrome setup (incognito, headless switch)
 │   ├── DriverFactory.java       ← ThreadLocal driver, ready for parallel runs
-│   └── DriverHelper.java        ← simple local-driver helper
+│   └── DriverHelper.java
+├── src/test/java/api/
+│   ├── ApiClient.java           ← one RequestSpecification: base URI, JSON, log on failure
+│   └── TestData.java            ← reads testdata.json
+├── src/test/java/pages/         ← Login, Logout, Registration, ForgotPassword, Ecommerce
+├── src/test/java/stepdefinitions/
+│   ├── ApiSteps.java            ← Rest Assured steps and checks
+│   ├── AuthSteps.java · RegistrationSteps.java · ForgotPasswordSteps.java
+│   ├── ShopSteps.java           ← cart, product details, menu navigation
+│   ├── CommonSteps.java
+│   └── Hooks.java               ← browser only for non-@api; screenshot + HTML on failure
+├── src/test/java/runners/       ← TestRunner · ApiRunner · UiRunner
 ├── src/test/resources/
 │   ├── config.properties        ← UI url, browser, timeout, test user, API base_url
-│   ├── testdata.json            ← test data file
+│   ├── testdata.json            ← API payloads, ids, response-time limit
+│   ├── schemas/user-schema.json ← JSON Schema for GET /users/{id}
 │   └── features/
 │       ├── APIgetUser.feature        APIcreateUser.feature
 │       ├── APIupdateUser.feature     APIdeleteUser.feature
-│       ├── APInegativeTest.feature   APITest.feature
+│       ├── APInegativeTest.feature
 │       ├── Login.feature             Logout.feature
 │       ├── Registration.feature      ForgotPassword.feature
 │       ├── CartCheckout.feature
 │       ├── SmokeTests.feature        RegressionTests.feature
+├── .github/workflows/tests.yml  ← API and UI jobs on every push
+├── pom.xml
 └── README.md
 ```
-
-> 🚧 **Repository status:** this repository currently holds the feature files, configuration and driver utilities. The Maven `pom.xml`, step definitions and Cucumber runners are being added next — see the roadmap.
 
 ---
 
@@ -192,23 +224,22 @@ timeout=10
 base_url=https://jsonplaceholder.typicode.com
 ```
 
-The UI test user (`valid_email`, `valid_password`) is the public practice account published by QA Brains — no real personal data is used.
+The UI test users (`valid_email` / `valid_password`, `shop_email` / `shop_password`) are the public practice accounts published by QA Brains — no real personal data is used. Add `headless=true` (or `-Dheadless=true`) to run Chrome without a window.
 
 ---
 
 ## ▶️ Running the Tests
 
-*(once `pom.xml` and the runners are committed)*
-
 ```bash
 git clone https://github.com/rbchy/QaBrainsAPIAutomationRestAssured.git
 cd QaBrainsAPIAutomationRestAssured
 
-# Everything
+# Everything (@smoke or @regression)
 mvn clean test
 
-# API only
-mvn clean test -Dcucumber.filter.tags="@api"
+# API pack / UI pack
+mvn clean test -Dtest=ApiRunner
+mvn clean test -Dtest=UiRunner -Dheadless=true
 
 # Smoke pack / regression pack
 mvn clean test -Dcucumber.filter.tags="@smoke"
@@ -228,19 +259,19 @@ mvn clean test -Dcucumber.filter.tags="@Login or @Registration"
 | `@regression` | Full suite |
 | `@api` | All Rest Assured scenarios |
 | `@get` `@create` `@update` `@delete` `@negative` | One API operation |
-| `@Login` `@Logout` `@Registration` `@ForgotPassword` | One UI module |
+| `@Login` `@Logout` `@Registration` `@ForgotPassword` `@Cart` `@Shop` | One UI module |
 
 ---
 
 ## 📈 Roadmap
 
-- [ ] Commit `pom.xml` (Rest Assured, Cucumber, TestNG, Selenium, WebDriverManager)
-- [ ] Commit step definitions, hooks and Cucumber runners
-- [ ] API assertions on status code, response time and JSON fields; JSON Schema validation
-- [ ] Request / response POJOs instead of raw JSON
-- [ ] Cucumber HTML + Allure reports
-- [ ] GitHub Actions workflow running the API pack on every push
-- [ ] Clean-up: merge `APITest.feature` into `APIupdateUser.feature`; align the expected text in the malformed-email Forgot Password scenario with the email it sends
+- [x] `pom.xml`, step definitions, hooks and runners
+- [x] API checks: status, response time, JSON fields, JSON Schema
+- [x] GitHub Actions running the API and UI packs on every push
+- [ ] Request / response POJOs instead of maps
+- [ ] Allure report published to GitHub Pages
+- [ ] Parallel UI runs with the ThreadLocal `DriverFactory`
+- [ ] Form Submission and Drag and Drop scenarios
 
 ---
 
