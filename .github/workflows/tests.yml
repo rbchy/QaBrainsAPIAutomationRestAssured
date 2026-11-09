@@ -81,25 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Dump rendered DOM of practice pages
-        run: |
-          for p in / /registration /ecommerce /e-commerce /forgot-password /ecommerce/products /cart; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "https://practice.qabrains.com$p")
-            echo "################ $p  (HTTP $code)"
-            google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=15000 --window-size=1920,1080 --dump-dom "https://practice.qabrains.com$p" > page.html 2>/dev/null
-            python3 - <<'PY'
-          import re, html
-          s = open('page.html', encoding='utf-8', errors='ignore').read()
-          print('TITLE', re.findall(r'<title>(.*?)</title>', s)[:1])
-          for mid in sorted(set(re.findall(r'data-menu-id="[^"]*?-([a-z0-9-]+)"', s))):
-              print('MENU', mid)
-          for m in sorted(set(re.findall(r'<a\b[^>]*href="(/[^"]*)"', s))):
-              print('LINK', m)
-          for tag in re.findall(r'<(?:button|input|select|textarea)\b[^>]*>', s)[:40]:
-              print('CTRL', re.sub(r'class="[^"]*"', '', tag)[:200])
-          for t in re.findall(r'<(?:h1|h2|h3)\b[^>]*>(.*?)</(?:h1|h2|h3)>', s, re.S)[:15]:
-              print('HEAD', re.sub(r'<[^>]+>|\s+', ' ', html.unescape(t)).strip()[:80])
-          for c in sorted(set(re.findall(r'class="([^"]*(?:cart|product|card|qty|quantity|search)[^"]*)"', s, re.I)))[:25]:
-              print('CLASS', c[:150])
-          PY
-          done
+      - uses: actions/checkout@v4
+      - run: pip install -q selenium==4.25.0
+      - name: Walk registration and the e-commerce site
+        run: python3 .github/probe.py
