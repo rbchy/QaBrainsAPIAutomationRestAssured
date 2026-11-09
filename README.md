@@ -1,457 +1,277 @@
-# QaBrainsAPIAutomationRestAssured 🚀
-
 <div align="center">
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!--                    IDENTITY BADGES                          -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+# 🔌 QaBrains API Automation — Rest Assured
 
-[![Author](https://img.shields.io/badge/Author-Ranajit%20Baran%20Chowdhury-0A66C2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ranajitchowdhury)
-[![Email](https://img.shields.io/badge/Email-chyranajit%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:chyranajit@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-%40ranajitchowdhury-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ranajitchowdhury)
+### Hybrid BDD suite: REST API tests with Rest Assured + UI tests with Selenium, written in Cucumber
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!--                    TECH STACK BADGES                        -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&size=18&pause=1500&color=FFC107&center=true&vCenter=true&width=900&repeat=true&lines=Java+%C2%B7+Rest+Assured+%C2%B7+Cucumber+%C2%B7+Selenium+%C2%B7+TestNG;API%3A+GET+%C2%B7+POST+%C2%B7+PUT+%C2%B7+DELETE+%C2%B7+negative+checks;UI%3A+login%2C+registration%2C+cart%2C+forgot+password)](https://git.io/typing-svg)
 
-![Java](https://img.shields.io/badge/Java-17%2B-007396?style=for-the-badge&logo=openjdk&logoColor=white)
-![RestAssured](https://img.shields.io/badge/RestAssured-5.x-43B02A?style=for-the-badge&logo=java&logoColor=white)
-![TestNG](https://img.shields.io/badge/TestNG-7.x-FF6C37?style=for-the-badge&logo=testng&logoColor=white)
-![Maven](https://img.shields.io/badge/Maven-3.x-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
-![Jackson](https://img.shields.io/badge/Jackson%20%2F%20Gson-Serialization-8B0000?style=for-the-badge&logo=java&logoColor=white)
-![ExtentReports](https://img.shields.io/badge/Extent%20Reports-5.x-6A0DAD?style=for-the-badge)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
-![Jenkins](https://img.shields.io/badge/Jenkins-Pipeline%20Ready-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
+<!-- ============ STATUS BAR ============ -->
+![Status](https://img.shields.io/badge/Status-In%20Progress-f59e0b?style=for-the-badge&logo=checkmarx&logoColor=white)
+![Scenarios](https://img.shields.io/badge/Scenarios-21%20(6%20API%20%C2%B7%2015%20UI)-155e75?style=for-the-badge)
+![API](https://img.shields.io/badge/API-JSONPlaceholder-1e3a8a?style=for-the-badge&logo=json&logoColor=white)
+![UI](https://img.shields.io/badge/UI-practice.qabrains.com-0d9488?style=for-the-badge&logo=googlechrome&logoColor=white)
 
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Rest Assured](https://img.shields.io/badge/Rest%20Assured-43B02A?style=for-the-badge&logo=java&logoColor=white)
+![Cucumber](https://img.shields.io/badge/Cucumber-23D96C?style=for-the-badge&logo=cucumber&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
+![TestNG](https://img.shields.io/badge/TestNG-FF7F00?style=for-the-badge)
+![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
+
+![Last Commit](https://img.shields.io/github/last-commit/rbchy/QaBrainsAPIAutomationRestAssured?style=flat-square&color=0d9488&label=Last%20commit)
+![Repo Size](https://img.shields.io/github/repo-size/rbchy/QaBrainsAPIAutomationRestAssured?style=flat-square&color=155e75&label=Repo%20size)
+![Top Language](https://img.shields.io/github/languages/top/rbchy/QaBrainsAPIAutomationRestAssured?style=flat-square&color=f59e0b)
 
 </div>
 
 ---
 
-> A production-grade API test automation framework built with **RestAssured** and **Java** to validate the complete RESTful service layer of the **QaBrains** platform. This project demonstrates dual expertise in **software engineering** and **API quality assurance** — implementing clean layered architecture, POJO-based serialization, reusable request specifications, and CI/CD-ready execution pipelines that mirror enterprise delivery standards.
+## 📌 At a Glance
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**🙋 What this is**
+
+One Cucumber project that tests a system from **two sides**: the **REST API** layer (create, read, update, delete and an invalid-endpoint check, sent with **Rest Assured**) and the **web UI** (login, registration, cart, forgot password and navigation, driven with **Selenium**). Every scenario is plain-English **Gherkin** and is tagged so a smoke run, a regression run or a single module can be picked from the command line.
+
+> *An API that answers 200 and a page that shows nothing is still a defect — test both.*
+
+</td>
+<td width="50%" valign="top">
+
+**📍 Quick facts**
+
+| | |
+|---|---|
+| 🔌 **API target** | [jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com) |
+| 🌐 **UI target** | [practice.qabrains.com](https://practice.qabrains.com/) |
+| 🧪 **Scenarios** | 21 in 13 feature files |
+| 🏷️ **Suites** | `@smoke` · `@regression` · `@api` |
+| ⚙️ **Config** | `src/test/resources/config.properties` |
+
+</td>
+</tr>
+</table>
 
 ---
 
-## 🎯 Project Mission
+## 🧭 How It Fits Together
 
-The QaBrains platform exposes a suite of RESTful APIs powering its authentication, content management, and user interaction workflows. This framework establishes a **living contract test suite** around those services — ensuring every endpoint behaves as specified across environments, data conditions, and user roles.
-
-This is not a collection of isolated test methods. It is a **structured automation framework** where tests are modular, configurations are centralized, models are strongly typed via POJOs, and execution is fully automatable from the command line — integrable into any CI/CD pipeline with zero modification.
-
----
-
-## 🚀 Key Framework Highlights
-
-### Fluent RestAssured DSL
-Every API interaction is authored using **RestAssured's Given-When-Then fluent API** — mirroring the BDD style of Gherkin without the Cucumber overhead. Tests are readable, expressive, and self-documenting at the method level.
-
-### Reusable Request Specifications
-`RequestSpecification` objects are defined once in the base layer and reused across all test classes. Base URIs, authentication headers, content types, and default query parameters are configured centrally — eliminating duplication and making environment switches a single-line change.
-
-### POJO-Based Serialization and Deserialization
-Request payloads and response bodies are mapped to **strongly typed Java POJO classes** using Jackson or Gson. This eliminates raw JSON string manipulation, provides compile-time safety, and makes assertions on deeply nested response structures clean and readable.
-
-### Centralized Configuration Management
-All environment-specific values — base URLs, API keys, credentials, and timeouts — are externalized to a `config.properties` file and accessed via a singleton `ConfigReader` utility. No hardcoded values exist anywhere in the test code.
-
-### TestNG Integration
-**TestNG** provides full control over test suite composition — grouping by module (`@Test(groups = "auth")`), sequencing dependent tests (`@Test(dependsOnMethods = ...)`), parallel execution across test classes, and rich listener hooks for reporting and failure handling.
-
-### Extent Reports
-Every execution produces an **Extent HTML Report** — an interactive dashboard with test-level pass/fail status, request/response logs, execution timelines, and failure details — suitable for attaching to sprint review artifacts or defect tickets.
-
-### Data-Driven Testing
-Test methods are parameterized using **TestNG `@DataProvider`**, enabling a single test definition to validate multiple input combinations — valid payloads, boundary values, and malformed inputs — without duplicating test logic.
-
-### CI/CD Ready
-The framework executes headlessly via `mvn clean test` with no GUI dependency. A pre-configured **GitHub Actions** workflow ships with the repository, triggering the full suite on every push and pull request.
+```mermaid
+flowchart LR
+  F["Feature files<br/>(Gherkin)"] --> T{"Tag"}
+  T -->|"@api"| RA["Rest Assured<br/>given / when / then"]
+  T -->|"UI tags"| SE["Selenium WebDriver<br/>+ WebDriverManager"]
+  RA --> JP["JSONPlaceholder<br/>REST API"]
+  SE --> CH["Chrome<br/>(incognito, no password popups)"]
+  CH --> QB["practice.qabrains.com"]
+  C["config.properties<br/>url · base_url · timeout · test user"] -.-> RA
+  C -.-> SE
+```
 
 ---
 
-## 🛠 Tech Stack & Tools
+## 🔌 API Coverage
 
-| Component | Technology | Version | Purpose |
-| :--- | :--- | :--- | :--- |
-| **Language** | Java | 17+ | Core programming, OOP design, and type-safe test logic |
-| **API Automation** | RestAssured | 5.x | Fluent HTTP client for REST API request and response handling |
-| **Test Framework** | TestNG | 7.x | Suite management, grouping, parallel execution, and listeners |
-| **Build Tool** | Apache Maven | 3.x | Dependency management, build lifecycle, and CI integration |
-| **Serialization** | Jackson / Gson | Latest | POJO ↔ JSON serialization and deserialization |
-| **Reporting** | Extent Reports | 5.x | Interactive HTML execution dashboards |
-| **Data Handling** | JSON / TestNG DataProvider | — | Data-driven test parameterization |
-| **Configuration** | Java Properties API | — | Environment-agnostic config management |
-| **CI/CD** | GitHub Actions / Jenkins | — | Pipeline integration for automated scheduled runs |
-| **IDE** | Eclipse / IntelliJ IDEA | — | Development, debugging, and run configuration |
+| # | Feature file | Scenario | Method | Tags |
+|---|---|---|---|---|
+| 1 | `APIgetUser.feature` | Get user details | `GET` | `@smoke @regression @api @get` |
+| 2 | `APIcreateUser.feature` | Create a user | `POST` | `@smoke @regression @api @create` |
+| 3 | `APIupdateUser.feature` | Update a user | `PUT` | `@smoke @regression @api @update` |
+| 4 | `APIdeleteUser.feature` | Delete a user | `DELETE` | `@smoke @regression @api @delete` |
+| 5 | `APInegativeTest.feature` | Call an invalid endpoint → error expected | `GET` | `@smoke @regression @api @negative` |
+| 6 | `APITest.feature` | Update user (combined API feature) | `PUT` | `@smoke @regression` |
+
+Every API scenario follows the same shape:
+
+```gherkin
+Given API base URI is set          # base_url from config.properties
+When I create a user               # Rest Assured request
+Then API response should be valid  # status code + response body checks
+```
+
+---
+
+## 🌐 UI Coverage
+
+<details open>
+<summary><strong>🔐 Login · Logout · Registration · Forgot Password</strong></summary>
+
+<br>
+
+| Feature | Scenarios | Positive / Negative |
+|---|---|---|
+| `Login.feature` | Valid credentials · invalid credentials | ✅ / ❌ |
+| `Logout.feature` | Logged-in user logs out | ✅ |
+| `Registration.feature` | Register with a valid email · reject an email without `@` | ✅ / ❌ |
+| `ForgotPassword.feature` | Reset for a registered email · reject a malformed email | ✅ / ❌ |
+
+</details>
+
+<details>
+<summary><strong>🛒 Cart</strong></summary>
+
+<br>
+
+| Feature | Scenarios |
+|---|---|
+| `CartCheckout.feature` | Add a product to the cart · remove it and confirm the cart is empty |
+
+</details>
+
+<details>
+<summary><strong>💨 Smoke & Regression packs</strong></summary>
+
+<br>
+
+| Feature | Scenarios |
+|---|---|
+| `SmokeTests.feature` | S-01 home page loads · S-02 Catalog / About / Blog navigation · S-03 Wish list and Refer a Friend |
+| `RegressionTests.feature` | R-01 add multiple products · R-02 update quantity · R-03 search for an item that does not exist |
+
+</details>
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| Language | Java | Test code |
+| API testing | Rest Assured | Fluent `given / when / then` HTTP requests and assertions |
+| UI testing | Selenium WebDriver | Drives Chrome |
+| Driver management | WebDriverManager | Downloads the matching ChromeDriver automatically |
+| BDD | Cucumber (Gherkin) | Readable scenarios shared by API and UI |
+| Runner | TestNG | Executes Cucumber scenarios |
+| Build | Maven | Dependencies and `mvn test` |
+| Config | Java `Properties` | Environment values in one file |
 
 ---
 
 ## 📁 Project Structure
 
-```text
-QaBrainsAPIAutomation/
-│
-├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── models/
-│   │           ├── request/
-│   │           │   ├── LoginRequest.java          # Login endpoint request POJO
-│   │           │   ├── CreateUserRequest.java     # User creation request POJO
-│   │           │   └── UpdateCourseRequest.java   # Course update request POJO
-│   │           └── response/
-│   │               ├── LoginResponse.java         # Login endpoint response POJO
-│   │               ├── UserResponse.java          # User retrieval response POJO
-│   │               └── ErrorResponse.java         # Standard error response POJO
-│   │
-│   └── test/
-│       └── java/
-│           ├── base/
-│           │   ├── BaseTest.java                  # Test lifecycle hooks (@Before/@After)
-│           │   └── RequestSpecBuilder.java        # Centralized RequestSpecification factory
-│           │
-│           ├── tests/
-│           │   ├── AuthTests.java                 # Authentication endpoint test cases
-│           │   ├── UserTests.java                 # User management CRUD test cases
-│           │   ├── CourseTests.java               # Course catalog CRUD test cases
-│           │   ├── EnrollmentTests.java           # Enrollment workflow test cases
-│           │   └── NegativeTests.java             # Boundary, invalid, unauthorized tests
-│           │
-│           ├── utils/
-│           │   ├── ConfigReader.java              # config.properties singleton accessor
-│           │   ├── JsonUtils.java                 # JSON read/write and assertion helpers
-│           │   ├── DataProviders.java             # TestNG @DataProvider methods
-│           │   └── TokenManager.java              # Auth token extraction and caching
-│           │
-│           └── listeners/
-│               ├── ExtentReportListener.java      # Extent Report lifecycle manager
-│               └── TestNGRetryAnalyzer.java       # Flaky test retry logic
-│
+```
+QaBrainsAPIAutomationRestAssured/
+├── src/test/java/utils/
+│   ├── BaseTest.java            ← loads config.properties, Chrome setup (incognito,
+│   │                              password-manager popups off, waits), health check
+│   ├── DriverFactory.java       ← ThreadLocal driver, ready for parallel runs
+│   └── DriverHelper.java        ← simple local-driver helper
 ├── src/test/resources/
-│   ├── config.properties                          # Environment configuration (URL, creds)
-│   ├── test-data/
-│   │   ├── valid_users.json                       # Positive test payload sets
-│   │   ├── invalid_users.json                     # Negative / boundary payload sets
-│   │   └── course_data.json                       # Course module data sets
-│   └── schemas/
-│       ├── login_response_schema.json             # JSON schema for login response
-│       └── user_response_schema.json              # JSON schema for user response
-│
-├── test-output/
-│   └── ExtentReport.html                          # Auto-generated HTML execution report
-│
-├── .github/
-│   └── workflows/
-│       └── api-tests.yml                          # GitHub Actions CI/CD pipeline
-│
-├── testng.xml                                     # TestNG suite and group configuration
-├── pom.xml                                        # Maven dependencies and Surefire config
-└── README.md                                      # Project documentation
+│   ├── config.properties        ← UI url, browser, timeout, test user, API base_url
+│   ├── testdata.json            ← test data file
+│   └── features/
+│       ├── APIgetUser.feature        APIcreateUser.feature
+│       ├── APIupdateUser.feature     APIdeleteUser.feature
+│       ├── APInegativeTest.feature   APITest.feature
+│       ├── Login.feature             Logout.feature
+│       ├── Registration.feature      ForgotPassword.feature
+│       ├── CartCheckout.feature
+│       ├── SmokeTests.feature        RegressionTests.feature
+└── README.md
 ```
 
----
-
-## 🌐 API Modules Under Test
-
-| Module | Endpoint Group | Scenarios Covered |
-| :--- | :--- | :--- |
-| **Authentication** | `/auth/login`, `/auth/logout`, `/auth/refresh` | Valid login, invalid credentials, token expiry, refresh flow |
-| **User Management** | `/users`, `/users/{id}` | Create, read, update, delete; field-level assertions |
-| **Course Catalog** | `/courses`, `/courses/{id}` | List, create, update, delete; pagination and filter validation |
-| **Enrollment** | `/enrollments`, `/enrollments/{id}` | Enroll, verify status, cancel; conflict handling |
-| **Search** | `/search?q=` | Valid queries, empty strings, special characters, no-results |
-| **Error Handling** | All endpoints | `400`, `401`, `403`, `404`, `409`, `422`, `500` contract validation |
+> 🚧 **Repository status:** this repository currently holds the feature files, configuration and driver utilities. The Maven `pom.xml`, step definitions and Cucumber runners are being added next — see the roadmap.
 
 ---
 
-## 🎯 Test Coverage Matrix
+## ⚙️ Configuration
 
-### 🔐 Authentication APIs
-- Token generation on valid credentials; assert `200` and token presence
-- Authorization header propagation across all protected endpoints
-- Session expiry and token refresh behavior
-- Unauthorized access rejection — assert `401` with correct error body
-
-### 📦 CRUD Operations
-- `POST` — Resource creation with valid POJO payload; assert `201 Created` and `Location` header
-- `GET` — Single and collection retrieval; assert response schema and field values
-- `PUT` / `PATCH` — Full and partial updates; assert field-level mutation in response
-- `DELETE` — Soft and hard delete; assert `204 No Content` or `200 OK`
-
-### 🔎 Response Validation
-- HTTP status code assertion on every request
-- JSON schema validation against pre-defined schema files in `resources/schemas/`
-- Key/value assertions on critical response fields using RestAssured `body()` matchers
-- Response time assertions for SLA compliance (`time < 2000ms`)
-- Response header validation — `Content-Type`, `Authorization`, `Cache-Control`
-
-### ⚠️ Negative Testing
-- Missing required fields → assert `422 Unprocessable Entity`
-- Incorrect data types in payload → assert `400 Bad Request`
-- Duplicate resource creation → assert `409 Conflict`
-- Non-existent resource access → assert `404 Not Found`
-- Expired or missing token → assert `401 Unauthorized`
-- Insufficient role permissions → assert `403 Forbidden`
-
-### 🔄 End-to-End API Flows
-- **Login → Get User Profile → Update Profile → Logout**
-- **Create Course → Enroll User → Verify Enrollment → Delete Course**
-- **Register User → Authenticate → Access Protected Resource → Revoke Token**
-
----
-
-## ⚙️ Setup & Installation
-
-### Prerequisites
-
-- Java JDK 17+
-- Apache Maven 3.6+
-- Eclipse IDE or IntelliJ IDEA
-- Access to QaBrains API endpoints (Dev or Test environment)
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/ranajitchowdhury/QaBrainsAPIAutomation.git
-cd QaBrainsAPIAutomation
-```
-
-### Configure the Environment
-
-Edit `src/test/resources/config.properties`:
+`src/test/resources/config.properties`
 
 ```properties
-base.url=https://api.practice.qabrains.com
-auth.username=testuser@qabrains.com
-auth.password=Test@1234
-connect.timeout=10000
-read.timeout=20000
+# UI
+url=https://practice.qabrains.com/
+browser=chrome
+timeout=10
+
+# API
+base_url=https://jsonplaceholder.typicode.com
 ```
 
-### Install Dependencies
-
-```bash
-mvn clean install -DskipTests
-```
+The UI test user (`valid_email`, `valid_password`) is the public practice account published by QA Brains — no real personal data is used.
 
 ---
 
 ## ▶️ Running the Tests
 
-### Run the Full Suite
+*(once `pom.xml` and the runners are committed)*
 
 ```bash
+git clone https://github.com/rbchy/QaBrainsAPIAutomationRestAssured.git
+cd QaBrainsAPIAutomationRestAssured
+
+# Everything
 mvn clean test
-```
 
-### Run a Specific TestNG Suite
+# API only
+mvn clean test -Dcucumber.filter.tags="@api"
 
-```bash
-mvn test -DsuiteXmlFile=testng.xml
-```
+# Smoke pack / regression pack
+mvn clean test -Dcucumber.filter.tags="@smoke"
+mvn clean test -Dcucumber.filter.tags="@regression"
 
-### Run by Group Tag
-
-```bash
-# Run authentication tests only
-mvn test -Dgroups=auth
-
-# Run smoke suite
-mvn test -Dgroups=smoke
-
-# Run full regression
-mvn test -Dgroups=regression
-```
-
-### Run a Single Test Class
-
-```bash
-mvn test -Dtest=AuthTests
-```
-
-### Run from IDE
-
-1. Right-click `testng.xml` → **Run As → TestNG Suite**
-2. Or right-click any test class → **Run As → TestNG Test**
-
----
-
-## 📊 Sample Test — Login API
-
-```java
-@Test(groups = {"smoke", "auth"}, description = "Valid login returns 200 and auth token")
-public void testValidLogin() {
-
-    // Arrange — build request POJO
-    LoginRequest loginRequest = new LoginRequest();
-    loginRequest.setUsername(ConfigReader.get("auth.username"));
-    loginRequest.setPassword(ConfigReader.get("auth.password"));
-
-    // Act — execute POST /auth/login
-    LoginResponse response =
-        given()
-            .spec(RequestSpecBuilder.getBaseSpec())
-            .body(loginRequest)
-        .when()
-            .post("/auth/login")
-        .then()
-            .statusCode(200)
-            .time(lessThan(2000L))
-            .header("Content-Type", containsString("application/json"))
-            .body("token", not(emptyOrNullString()))
-            .body("user.email", equalTo(ConfigReader.get("auth.username")))
-            .body("user.role", notNullValue())
-        .extract()
-            .as(LoginResponse.class);
-
-    // Cache token for downstream tests
-    TokenManager.setToken(response.getToken());
-
-    Assert.assertNotNull(response.getToken(), "Auth token must not be null");
-    Assert.assertEquals(response.getUser().getEmail(), ConfigReader.get("auth.username"));
-}
-
-@Test(groups = {"regression", "negative"}, description = "Invalid credentials return 401")
-public void testInvalidLoginCredentials() {
-
-    LoginRequest loginRequest = new LoginRequest("invalid@test.com", "wrongpassword");
-
-    given()
-        .spec(RequestSpecBuilder.getBaseSpec())
-        .body(loginRequest)
-    .when()
-        .post("/auth/login")
-    .then()
-        .statusCode(401)
-        .body("error", equalTo("Invalid credentials"))
-        .body("message", not(emptyOrNullString()));
-}
+# One module
+mvn clean test -Dcucumber.filter.tags="@Login or @Registration"
 ```
 
 ---
 
-## 🔄 CI/CD Pipeline Integration
+## 🏷️ Tags
 
-```yaml
-# .github/workflows/api-tests.yml
-name: QaBrains RestAssured API Test Suite
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  api-tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Java 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-
-      - name: Run API Test Suite
-        run: mvn clean test --no-transfer-progress
-
-      - name: Upload Extent Report
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: API-Extent-Report
-          path: test-output/ExtentReport.html
-```
+| Tag | Meaning |
+|---|---|
+| `@smoke` | Critical path — quick build check |
+| `@regression` | Full suite |
+| `@api` | All Rest Assured scenarios |
+| `@get` `@create` `@update` `@delete` `@negative` | One API operation |
+| `@Login` `@Logout` `@Registration` `@ForgotPassword` | One UI module |
 
 ---
 
-## 📈 Roadmap — Future Enhancements
+## 📈 Roadmap
 
-- [ ] **Allure Report Integration** — richer, interactive execution dashboards with trend analysis
-- [ ] **Parallel Execution** — configure TestNG `parallel="methods"` for faster regression cycles
-- [ ] **Database Validation** — cross-validate API responses against backend DB state via JDBC
-- [ ] **Contract Testing with Pact** — consumer-driven contract validation to catch breaking API changes early
-- [ ] **Multi-Environment Matrix** — parameterize `config.properties` selection via Maven profiles
-- [ ] **Jenkins Pipeline** — add `Jenkinsfile` for Jenkins-based CI infrastructure
-- [ ] **Secrets Management** — integrate with GitHub Secrets / HashiCorp Vault for credential injection
-- [ ] **Response Caching Layer** — cache repeated `GET` responses within a suite run to reduce API call volume
-
----
-
-## 🏗 Design Principles
-
-### Separation of Concerns
-Test logic, API interaction (request specs), data models (POJOs), and infrastructure (utilities, config) are cleanly separated. No layer reaches into another's internals — only its public interface.
-
-### Strongly Typed Models Over Raw JSON
-Raw JSON string manipulation is replaced everywhere with **POJO deserialization**. This gives compile-time safety, IDE autocomplete, and eliminates typo-driven test failures.
-
-### DRY — One Source of Truth
-`RequestSpecBuilder` is authored once. `ConfigReader` is a singleton. `TokenManager` caches the auth token once per suite. Nothing is duplicated across test classes.
-
-### Fail Fast with Meaningful Errors
-All assertions produce actionable failure messages. Extent Reports and TestNG's detailed stack traces ensure every defect contains sufficient context for immediate triage.
-
-### Configuration-Driven, Environment-Agnostic
-No credentials or base URLs live inside test code. The framework is promoted from Dev to Test to Staging by changing a single properties file — or injecting a Maven property from CI.
+- [ ] Commit `pom.xml` (Rest Assured, Cucumber, TestNG, Selenium, WebDriverManager)
+- [ ] Commit step definitions, hooks and Cucumber runners
+- [ ] API assertions on status code, response time and JSON fields; JSON Schema validation
+- [ ] Request / response POJOs instead of raw JSON
+- [ ] Cucumber HTML + Allure reports
+- [ ] GitHub Actions workflow running the API pack on every push
+- [ ] Clean-up: merge `APITest.feature` into `APIupdateUser.feature`; align the expected text in the malformed-email Forgot Password scenario with the email it sends
 
 ---
 
-## 🤝 Contributing
+## 🔗 Related Projects
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/add-enrollment-negative-tests`
-3. Commit your changes: `git commit -m "feat: add 409 conflict test for duplicate enrollment"`
-4. Push to your branch: `git push origin feature/add-enrollment-negative-tests`
-5. Open a Pull Request against `main`
+| Project | Stack |
+|---|---|
+| ⭐ [RbcTcsWorld E-Commerce Suite](https://github.com/rbchy/RbcTcsWorld_ECommerceSuite) | Spring Boot · REST Assured · Selenium · Playwright · CI quality gates |
+| 🔌 [API — Postman / Newman](https://github.com/rbchy/QaBrainsAPIAutomation_Postman) | Postman · Newman |
+| 🔬 [QA Brains — Java + Playwright](https://github.com/rbchy/QaBrainsAutomationJavaPlaywright) | Java 17 · Playwright · Cucumber JVM · TestNG |
+| 🏥 [OpenEMR Healthcare](https://github.com/rbchy/OpenEMR_Automation) | Java · Selenium · Cucumber · TestNG |
 
-Please follow the existing package structure, naming conventions, and group tagging patterns.
+<sub>All projects: [github.com/rbchy](https://github.com/rbchy)</sub>
 
 ---
 
-## 👨‍💻 Author
+## 👤 Author
 
 <div align="center">
 
-<table>
-  <tr>
-    <td align="center" style="padding: 20px;">
-      <a href="https://github.com/ranajitchowdhury">
-        <img src="https://img.shields.io/badge/-ranajitchowdhury-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Profile"/>
-      </a>
-      <br/><br/>
-      <strong>Ranajit Baran Chowdhury</strong>
-      <br/>
-      <em>Software Programmer &amp; QA Automation Engineer</em>
-    </td>
-  </tr>
-</table>
-<br/>
+**Ranajit Baran Chowdhury (RB Chowdhury)**
+QA Automation Engineer / SDET · West Norriton, Pennsylvania, USA
 
-**Core Expertise**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rbchy/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rbchy)
+[![Website](https://img.shields.io/badge/Website-rbchy.github.io%2Frbchy-0d9488?style=for-the-badge&logo=githubpages&logoColor=white)](https://rbchy.github.io/rbchy/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Website-blueviolet?style=for-the-badge&logo=wix&logoColor=white)](https://rbc6543.wixsite.com/rbc-portfolio)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:chyranajit@gmail.com)
 
-![API Automation](https://img.shields.io/badge/API%20Automation-RestAssured%20%7C%20Postman-43B02A?style=flat-square&logo=java&logoColor=white)
-![UI Automation](https://img.shields.io/badge/UI%20Automation-Selenium%20%7C%20Playwright-43B02A?style=flat-square&logo=selenium&logoColor=white)
-![Language](https://img.shields.io/badge/Language-Java%20%7C%20JavaScript-007396?style=flat-square&logo=openjdk&logoColor=white)
-![Framework](https://img.shields.io/badge/Framework-TestNG%20%7C%20Cucumber%20%7C%20Maven-C71A36?style=flat-square&logo=apachemaven&logoColor=white)
-![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions%20%7C%20Jenkins-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-![Testing](https://img.shields.io/badge/Testing-Manual%20%7C%20Automation%20%7C%20API-6A0DAD?style=flat-square)
+<sub>Provided for educational and professional QA automation purposes. JSONPlaceholder and QA Brains are public practice services.</sub>
+
+⭐ *If this project helps you, a star on the repo is appreciated.*
 
 </div>
-
-> *"A test that doesn't fail when it should is worse than no test at all."*
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See the `LICENSE` file for full details.
