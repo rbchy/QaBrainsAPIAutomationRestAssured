@@ -45,6 +45,26 @@ jobs:
           cache: maven
       - name: Run UI scenarios
         run: mvn -B --no-transfer-progress clean test -Dtest=UiRunner -Dheadless=true
+      - name: Summarise failure pages (links, buttons, inputs)
+        if: failure()
+        run: |
+          python3 - <<'EOF'
+          import glob, re, html
+          for f in sorted(glob.glob('target/failures/*.html')):
+              s = open(f, encoding='utf-8', errors='ignore').read()
+              print('=' * 30, f, s.splitlines()[0])
+              for m in sorted(set(re.findall(r'<a\b[^>]*href="([^"]*)"[^>]*>(.*?)</a>', s, re.S))):
+                  print('LINK', m[0], '|', re.sub(r'<[^>]+>|\s+', ' ', html.unescape(m[1])).strip()[:60])
+              for tag in re.findall(r'<(?:button|input|select|textarea)\b[^>]*>', s):
+                  print('CTRL', tag[:220])
+              for m in re.findall(r'(?:id|class)="([^"]*(?:cart|product|search|registration|qty|quantity)[^"]*)"', s, re.I)[:40]:
+                  print('HINT', m)
+          EOF
+          for p in / /ecommerce /ecommerce/login /registration; do
+            echo "========== CURL $p"
+            curl -sL "https://practice.qabrains.com$p" | grep -oE '<a [^>]*href="[^"]*"|<button[^>]{0,160}|<input[^>]{0,200}|id="[^"]*"' | sort -u | head -80
+          done
+
       - name: Upload UI report and failure pages
         if: always()
         uses: actions/upload-artifact@v4
