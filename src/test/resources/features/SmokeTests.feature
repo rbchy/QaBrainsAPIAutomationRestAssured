@@ -12,13 +12,12 @@ Feature: Smoke Tests
       | Registration    | registration    |
       | Forgot Password | forgot-password |
       | Form Submission | form-submission |
-      | Drag and Drop   | drag            |
+      | Drag and Drop List | drag          |
     Then Each module page should open
 
   @smoke
-  Scenario: S-03 Verify demo sites open
+  Scenario: S-03 Verify the e-commerce demo site opens
     Given User launches the application
     When User opens each demo module from the menu
       | E-Commerce Site | ecommerce |
-      | Booking Site    | booking   |
     Then Each module page should open

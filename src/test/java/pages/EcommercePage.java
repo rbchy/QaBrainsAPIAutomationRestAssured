@@ -46,7 +46,7 @@ public class EcommercePage {
         WebElement p = driver.findElement(password);
         p.clear();
         p.sendKeys(pass);
-        driver.findElement(submit).click();
+        click(driver.findElement(submit));
         wait.until(ExpectedConditions.visibilityOfElementLocated(addButtons));
     }
 
