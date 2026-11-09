@@ -76,12 +76,3 @@ jobs:
             target/surefire-reports/
           if-no-files-found: ignore
 
-  probe:
-    name: Probe site structure (temporary)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-      - run: pip install -q selenium==4.25.0
-      - name: Walk registration and the e-commerce site
-        run: python3 .github/probe.py

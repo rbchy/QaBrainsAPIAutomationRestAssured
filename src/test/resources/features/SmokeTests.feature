@@ -1,15 +1,24 @@
 Feature: Smoke Tests
-@smoke
-Scenario: S-01 Verify Home page loads
-  Given User launches the application
-  Then Home page should load successfully
-@smoke
-Scenario: S-02 Verify navigation links
-  Given User launches the application
-  When User clicks on Catalog, About and Blog
-  Then Pages should navigate correctly
-@smoke
-Scenario: S-03 Verify wish list and refer a friend
-  Given User launches the application
-  When User clicks on Wish list and Refer a Friend
-  Then Pages should open successfully
+
+  @smoke
+  Scenario: S-01 Verify Home page loads
+    Given User launches the application
+    Then Home page should load successfully
+
+  @smoke
+  Scenario: S-02 Verify demo module navigation
+    Given User launches the application
+    When User opens each demo module from the menu
+      | Registration    | registration    |
+      | Forgot Password | forgot-password |
+      | Form Submission | form-submission |
+      | Drag and Drop   | drag            |
+    Then Each module page should open
+
+  @smoke
+  Scenario: S-03 Verify demo sites open
+    Given User launches the application
+    When User opens each demo module from the menu
+      | E-Commerce Site | ecommerce |
+      | Booking Site    | booking   |
+    Then Each module page should open
